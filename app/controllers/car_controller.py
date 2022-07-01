@@ -50,3 +50,13 @@ def create_car():
     except AttributeError as e:
         return {"error": "owner_id not found"}, 404
 
+def delete_car(car_id):
+    car = Cars.query.get(car_id)
+
+    try:
+        db.session.delete(car)
+        db.session.commit()
+        return "", 204
+    
+    except:
+        return {"error": "car_id not found"}, 404
