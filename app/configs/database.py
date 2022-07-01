@@ -4,6 +4,7 @@ from os import getenv
 
 db = SQLAlchemy()
 
+
 def init_app(app: Flask):
     app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URI")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
