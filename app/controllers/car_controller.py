@@ -1,4 +1,5 @@
-from flask import jsonify, request, json
+from flask import jsonify, request
+from app.exception.invalid_data import InvalidDataError
 
 from app.models.car_model import Cars
 from app.configs.database import db
@@ -14,5 +15,5 @@ def create_car():
 		db.session.commit()
 		return jsonify(car), 201
 
-	except:
-		return {"mesage": "car already exists"}, 409
+	except InvalidDataError as e:
+		return e.args[0], 400
