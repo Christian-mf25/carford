@@ -1,8 +1,6 @@
 from dataclasses import dataclass
-from tokenize import String
 from sqlalchemy.orm import relationship
-
-from sqlalchemy import Column, ForeignKey, Boolean
+from sqlalchemy import Column, Boolean, String
 
 from app.configs.database import db
 
