@@ -1,6 +1,7 @@
 from flask import request, jsonify
 
 from app.models.owner_model import Owners
+from app.models.car_model import Cars
 from app.configs.database import db
 
 
@@ -17,3 +18,8 @@ def create_owner():
 
     except:
         return {"mesage": "owner already exists"}, 409
+
+def get_owner():
+	owners = Owners.query.all()
+
+	return jsonify(owners), 200
