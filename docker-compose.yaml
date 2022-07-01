@@ -1,0 +1,8 @@
+# version: '3'
+
+# services:
+#   nomedo_docker:
+#     build:
+#       context: ./
+#     ports:
+#       - 5000:5000
