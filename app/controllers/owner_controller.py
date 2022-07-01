@@ -1,5 +1,4 @@
-from unicodedata import category
-from flask import request, jsonify, current_app
+from flask import request, jsonify
 
 from app.models.owner_model import Owners
 from app.configs.database import db
