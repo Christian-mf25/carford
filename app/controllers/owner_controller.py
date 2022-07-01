@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from sqlalchemy.exc import IntegrityError
 
+from app.exception.invalid_data import InvalidDataError
 from app.models.owner_model import Owners
 from app.configs.database import db
 
@@ -15,8 +16,11 @@ def create_owner():
         db.session.commit()
         return jsonify(owner), 201
 
-    except:
-        return {"mesage": "owner already exists"}, 409
+    except InvalidDataError as e:
+        return e.args[0], 400
+
+    except IntegrityError as e:
+        return ({"msg": "cnh already exists"}), 409
 
 
 def get_owner():
@@ -33,7 +37,7 @@ def update_owner(owner_id):
 
         for key, value in data.items():
             setattr(owner, key, value)
-        
+
         db.session.add(owner)
         db.session.commit()
 
