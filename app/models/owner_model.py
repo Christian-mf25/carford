@@ -18,6 +18,6 @@ class Owners(db.Model):
     owner_id = Column(Integer, primary_key=True)
     cnh = Column(String(11), nullable=False, unique=True)
     name = Column(String(255), nullable=False)
-    opportunity = Column(Boolean)
+    opportunity = Column(Boolean, default=True)
 
     cars = relationship("Cars", back_populates="owner")
