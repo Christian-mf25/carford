@@ -1,8 +1,13 @@
 from flask import Flask
+from app import routes
 
-app = Flask(__name__)
+from app.configs import database, migrations
 
 
-@app.route("/")
-def index():
-    return "<h2> Teste docker!!!</h2>"
+def create_app():
+    app = Flask(__name__)
+    database.init_app(app)
+    migrations.init_app(app)
+    routes.init_app(app)
+
+    return app
