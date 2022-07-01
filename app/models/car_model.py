@@ -9,6 +9,8 @@ from app.configs.database import db
 
 @dataclass
 class Cars(db.Model):
+    keys = ["color", "model", "owner_id"]
+
     car_id: int
     color: str
     model: str

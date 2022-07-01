@@ -1,12 +1,16 @@
-from dataclasses import dataclass
-from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Boolean, String, Integer
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import validates
+from dataclasses import dataclass
 
+from app.exception.invalid_data import InvalidDataError
 from app.configs.database import db
 
 
 @dataclass
 class Owners(db.Model):
+    keys = ["cnh", "name"]
+    
     owner_id: int
     cnh: str
     name: str
@@ -21,3 +25,21 @@ class Owners(db.Model):
     opportunity = Column(Boolean, default=True)
 
     cars = relationship("Cars", back_populates="owner")
+
+    @validates("cnh")
+    def validate_cnh(self, _, value):
+        try:
+            only_numbers = int(value)
+        except:
+            raise InvalidDataError(
+                {
+                    "error": "cnh should contain only numbers"
+                }
+            )
+        if len(value) != 11:
+            raise InvalidDataError(
+                {
+                    "error": "cnh must contain 11 digits"
+                }
+            )
+        return value
