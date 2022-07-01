@@ -9,6 +9,8 @@ from app.configs.database import db
 
 @dataclass
 class Owners(db.Model):
+    keys = ["cnh", "name"]
+    
     owner_id: int
     cnh: str
     name: str
@@ -23,7 +25,7 @@ class Owners(db.Model):
     opportunity = Column(Boolean, default=True)
 
     cars = relationship("Cars", back_populates="owner")
-    
+
     @validates("cnh")
     def validate_cnh(self, _, value):
         try:
