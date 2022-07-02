@@ -42,6 +42,10 @@ def get_owner():
 
     return jsonify(owners), 200
 
+def get_opportunities():
+	opportunities = Owners.query.filter(Owners.opportunity==True).all()
+	return jsonify(opportunities), 200
+
 
 def update_owner(owner_id):
     data = request.get_json()
