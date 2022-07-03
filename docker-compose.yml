@@ -1,0 +1,29 @@
+version: '3.5'
+
+services:
+
+  db:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=dbname
+      - POSTGRES_HOST=localhost
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./app:/usr/app
+
+  app:
+    build: .
+    command: flask run --host=0.0.0.0
+    environment:
+      - DATABASE_URI=postgresql://user:password@db:5432/dbname
+    restart: always
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/user/app
+    depends_on:
+      - db
+
