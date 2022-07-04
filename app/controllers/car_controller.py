@@ -36,7 +36,7 @@ def create_car():
         return jsonify(car), 201
 
     except InvalidDataError as e:
-        return e.args[0], e.code
+        return e.args[0], 422
 
     except MissingKeyError as e:
         return e.args[0], e.code
