@@ -31,10 +31,10 @@ def create_owner():
         return e.args[0], 400
 
     except InvalidDataError as e:
-        return e.args[0], 400
+        return e.args[0], 422
 
     except IntegrityError as e:
-        return ({"msg": "cnh already exists"}), 409
+        return ({"error": "cnh already exists"}), 409
 
 
 def get_owner():
